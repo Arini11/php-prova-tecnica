@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block body %}
+    <style>
+        input, select {
+            display: block;
+        }
+        div.form-group {
+            padding-top:10px;
+        }
+    </style>
+    <section class="py-5 text-left container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 style="text-align: center">{{ proveedor.nombre }}</h1>
+                <br>
+                {{ form_start(form) }}
+                {{ form_end(form) }}
+<!--
+                <div class="form-group">
+                        <label for="id">Id</label>
+                        {{ proveedor.id }}
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" value="{{ proveedor.nombre }}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="proveedor@gmail.com"
+                               value="{{ proveedor.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input type="text" class="form-control" id="telefono" placeholder="638108310"
+                               value="{{ proveedor.telefono }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="selectTipo">Tipo</label>
+                        <select class="form-control" id="selectTipo">
+                            <option value="Hotel">Hotel</option>
+                            <option value="Pista">Pista</option>
+                            <option value="Complemento">Complemento</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="activo" value="{{ proveedor.telefono }}">
+                        <label class="form-check-label" for="activo">Activo</label>
+                    </div>
+                    <div style="padding-top: 40px">
+
+
+                    </div>
+                </form>
+                -->
+                <a type="button" class="btn btn-danger" href="{{ path("delete", {id:proveedor.id}) }}">Eliminar</a>
+                <a type="button" class="btn btn-primary" href="{{ path("findAll") }}">Atrás</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block body %}
+    <style>
+        input, select {
+            display: block;
+        }
+        div.form-group {
+            padding-top:10px;
+        }
+    </style>
+    <section class="py-5 text-left container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 style="text-align: center">Nuevo Proveedor</h1>
+                <br>
+                {{ form_start(form) }}
+                {{ form_end(form) }}
+                <a type="button" class="btn btn-primary" href="{{ path("findAll") }}">Atrás</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

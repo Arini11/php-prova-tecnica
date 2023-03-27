@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %} {{ parent() }} {% endblock %}
+{% block javascripts %} {{ parent() }} {% endblock %}
+{% block body %}
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1>Proveedores</h1>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Activo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for proveedor in listaProveedores %}
+                        <tr>
+                            <td>
+                                <a href="{{ path("details",{"id":proveedor.id}) }}"><i class="bi bi-pencil-square"></i></a>
+                            </td>
+                            <td>{{ proveedor.nombre }}</td>
+                            <td>{{ proveedor.email }}</td>
+                            <td>{{ proveedor.telefono }}</td>
+                            <td>{{ proveedor.tipo }}</td>
+                            <td>{{ proveedor.activo }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a type="button" class="btn btn-primary" href="{{ path("add") }}">Nuevo</a>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
