@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProveedorController extends AbstractController
 {
     /**
-     * @Route("/proveedores", name="proveedores_index")
+     * @Route("/", name="proveedores_index")
      */
     public function index(ProveedorRepository $proveedorRepository): Response
     {
