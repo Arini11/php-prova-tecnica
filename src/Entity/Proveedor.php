@@ -38,9 +38,20 @@ class Proveedor
     private $tipo;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
     private $activo;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
 
     /**
      * @param $nombre
@@ -49,13 +60,15 @@ class Proveedor
      * @param $tipo
      * @param $activo
      */
-    public function __construct($nombre=null, $email=null, $telefono=null, $tipo=null, $activo=null)
+    public function __construct($nombre=null, $email=null, $telefono=null, $tipo=null, $activo=false)
     {
         $this->nombre = $nombre;
         $this->email = $email;
         $this->telefono = $telefono;
         $this->tipo = $tipo;
         $this->activo = $activo;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -111,15 +124,40 @@ class Proveedor
         return $this;
     }
 
-    public function getActivo(): ?int
+    public function getActivo(): ?bool
     {
         return $this->activo;
     }
 
-    public function setActivo(int $activo): self
+    public function setActivo(bool $activo): self
     {
         $this->activo = $activo;
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
 }

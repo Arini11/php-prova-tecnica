@@ -4,7 +4,10 @@ namespace App\Form;
 
 use App\Entity\Proveedor;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +18,15 @@ class ProveedorType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('email')
-            ->add('telefono')
-            ->add('tipo')
-            ->add('activo', IntegerType::class)
+            ->add('email',EmailType::class)
+            ->add('telefono', NumberType::class)
+            ->add('tipo', ChoiceType::class, [
+                'choices'  => [
+                    'Hotel' => 'Hotel',
+                    'Pista' => 'Pista',
+                    'Complemento' => 'Complemento'
+                ]])
+            ->add('activo', CheckboxType::class, ['data'=>true])
             ->add("Guardar", SubmitType::class);
     }
 

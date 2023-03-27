@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Proveedor;
 use App\Form\ProveedorType;
+use App\Repository\ProveedorRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,42 +15,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProveedorController extends AbstractController
 {
     /**
-     * @Route("/", name="app_proveedor")
+     * @Route("/proveedores", name="proveedores_index")
      */
-    public function index(): Response
+    public function index(ProveedorRepository $proveedorRepository): Response
     {
         return $this->render('proveedor/index.html.twig', [
-            'controller_name' => 'ProveedorController',
+            'listaProveedores' => $proveedorRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/proveedores", name="findAll")
+     * @Route("/proveedores/{id}", name="proveedores_details")
      */
-    public function findAll(): Response
+    public function findById($id, Request $request, ProveedorRepository $proveedorRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $listaProveedores = $em->getRepository(Proveedor::class)->findAll();
-        return $this->render('proveedor/ProveedorView.html.twig', array(
-            "listaProveedores"=>$listaProveedores
-        ));
-    }
-
-    /**
-     * @Route("/proveedores/{id}", name="details")
-     */
-    public function findById($id, Request $request): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $proveedor = $em->getRepository(Proveedor::class)->find($id);
+        $proveedor = $proveedorRepository->find($id);
         $form = $this->createForm(ProveedorType::class,$proveedor);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
             $proveedor = $form->getData();
+            $proveedor->setUpdatedAt(new DateTime());
             $em->persist($proveedor);
             $em->flush();
-            return $this->render('proveedor/success.html.twig');
+            return $this->redirectToRoute("proveedores_index");
         }
 
         return $this->render('proveedor/details.html.twig', array(
@@ -58,19 +49,7 @@ class ProveedorController extends AbstractController
     }
 
     /**
-     * @Route("/proveedor/delete/{id}", name="delete")
-     */
-    public function deleteProveedor($id): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $proveedor = $em->getRepository(Proveedor::class)->find($id);
-        $em->remove($proveedor);
-        $em->flush();
-        return $this->render('proveedor/success.html.twig');
-    }
-
-    /**
-     * @Route("/proveedor/add", name="add")
+     * @Route("/proveedor/add", name="proveedores_add")
      */
     public function addProveedor(Request $request): Response
     {
@@ -83,11 +62,22 @@ class ProveedorController extends AbstractController
             $proveedor = $form->getData();
             $em->persist($proveedor);
             $em->flush();
-            return $this->render('proveedor/success.html.twig');
+            $this->addFlash("success","Proveedor añadido!");
+            return $this->redirectToRoute("proveedores_index");
         }
 
         return $this->render('proveedor/add.html.twig', array(
             "form"=>$form->createView()
         ));
+    }
+
+    /**
+     * @Route("/proveedores/delete/{id}", name="proveedores_delete")
+     */
+    public function deleteProveedor($id, ProveedorRepository $proveedorRepository): Response
+    {
+        $proveedorRepository->remove($proveedorRepository->find($id));
+        $this->addFlash("success","Proveedor eliminado!");
+        return $this->redirectToRoute("proveedores_index");
     }
 }
