@@ -39,6 +39,7 @@ class ProveedorController extends AbstractController
             $proveedor->setUpdatedAt(new DateTime());
             $em->persist($proveedor);
             $em->flush();
+            $this->addFlash("success","Proveedor actualizado!");
             return $this->redirectToRoute("proveedores_index");
         }
 

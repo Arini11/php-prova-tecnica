@@ -26,7 +26,7 @@ class ProveedorType extends AbstractType
                     'Pista' => 'Pista',
                     'Complemento' => 'Complemento'
                 ]])
-            ->add('activo', CheckboxType::class, ['data'=>true])
+            ->add('activo', CheckboxType::class, ['data'=>true,'required'=>false])
             ->add("Guardar", SubmitType::class);
     }
 

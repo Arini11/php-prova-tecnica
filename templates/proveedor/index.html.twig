@@ -37,7 +37,7 @@
                                 <td>{{ proveedor.email }}</td>
                                 <td>{{ proveedor.telefono }}</td>
                                 <td>{{ proveedor.tipo }}</td>
-                                <td>{{ proveedor.activo }}</td>
+                                <td>{{ proveedor.activo == 1 ? "Sí" : "No" }}</td>
                                 <td>{{ proveedor.createdAt.format('d-m-y H:m:s') }}</td>
                                 <td>{{ proveedor.updatedAt.format('d-m-y H:m:s') }}</td>
                             </tr>
