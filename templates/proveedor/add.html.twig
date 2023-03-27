@@ -6,8 +6,9 @@
         input, select {
             display: block;
         }
+
         div.form-group {
-            padding-top:10px;
+            padding-top: 10px;
         }
     </style>
     <section class="py-5 text-left container">
@@ -17,7 +18,9 @@
                 <br>
                 {{ form_start(form) }}
                 {{ form_end(form) }}
-                <a type="button" class="btn btn-primary" href="{{ path("proveedores_index") }}">Atrás</a>
+                <div class="d-flex justify-content-between" style="margin-top: -38px;">
+                    <a type="button" class="btn btn-primary" href="{{ path("proveedores_index") }}">Atrás</a>
+                </div>
             </div>
         </div>
     </section>
